@@ -45,17 +45,6 @@ transitions ={  'wait':{
                     'cmdC': 'wait',
                     'cmdD': 'wait'}}
 
-# def Acceptor(prompt, valids):
-#     ''' Acceptor style finite state machine to prompt for user input'''
-#     if not valids: 
-#         print(prompt)
-#         return ''
-#     else:
-#         while True:
-#             resp = input(prompt)
-#             if resp in valids:
-#                 return resp
-
 def finite_state_machine(initial_state):
     transition = True
     transitionlist = input('Please input list of transitions: ').split(',')
@@ -66,6 +55,9 @@ def finite_state_machine(initial_state):
     statelist.append(next_state)
     while (i < len(transitionlist)):
         transition = transitionlist[i]
+        if transition not in transitions[next_state]:
+            print('invalid input')
+            break
         next_state = transitions[next_state][transition]
         current_state = states[next_state]
         statelist.append(next_state)
