@@ -39,7 +39,31 @@ transitions ={  'wait':{
                 'disable':{
                     'cmdDC': 'enable'},
                 'enable':{
-                    'cmdDP': 'disable'},
+                    'cmdDP': 'disable',
+                    'cmdS': 'cook'},
                 'cook':{
                     'cmdC': 'wait',
                     'cmdD': 'wait'}}
+
+def Acceptor(prompt, valids):
+    ''' Acceptor style finite state machine to prompt for user input'''
+    if not valids: 
+        print(prompt)
+        return ''
+    else:
+        while True:
+            resp = input(prompt)
+            if resp in valids:
+                return resp
+
+def finite_state_machine(initial_state):
+    response = True
+    next_state = initial_state
+    current_state = states[next_state]
+    while response:
+        response = Acceptor(current_state['prompt'], current_state['transit'])
+        next_state = transitions[next_state][response]
+        current_state = states[next_state]
+
+if __name__ == "__main__":
+    finite_state_machine('wait')
