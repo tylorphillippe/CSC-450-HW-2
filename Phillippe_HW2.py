@@ -57,13 +57,20 @@ def Acceptor(prompt, valids):
                 return resp
 
 def finite_state_machine(initial_state):
-    response = True
+    transition = True
+    transitionlist = input('Please input list of transitions: ').split(',')
+    i=0
     next_state = initial_state
     current_state = states[next_state]
-    while response:
-        response = Acceptor(current_state['prompt'], current_state['transit'])
-        next_state = transitions[next_state][response]
+    statelist = []
+    statelist.append(next_state)
+    while (i < len(transitionlist)):
+        transition = transitionlist[i]
+        next_state = transitions[next_state][transition]
         current_state = states[next_state]
+        statelist.append(next_state)
+        i+=1
+    print(statelist)
 
 if __name__ == "__main__":
     finite_state_machine('wait')
