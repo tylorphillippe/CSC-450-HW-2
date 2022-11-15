@@ -2,16 +2,12 @@
 #CSC 450 HW 2
 #14 November, 2022
 states ={  'wait':{
-                'prompt': 'Machine ready',
                 'transit': ['cmdT']},
             'set time':{
-                'prompt': 'time set',
                 'transit': ['cmdFP', 'cmdHP']},
             'full power':{
-                'prompt': 'full power',
                 'transit': ['cmdHP', 'cmdDC', 'cmdDP']},
             'half power':{
-                'prompt': 'half power',
                 'transit': ['cmdFP', 'cmdDC', 'cmdDP']},
             'disable':{
                 'prompt': 'disable',
@@ -45,24 +41,22 @@ transitions ={  'wait':{
                     'cmdC': 'wait',
                     'cmdD': 'wait'}}
 
-def finite_state_machine(initial_state):
+def state_machine(initial_state):
     transition = True
     transitionlist = input('Please input list of transitions: ').split(',')
     i=0
-    next_state = initial_state
-    current_state = states[next_state]
+    state = initial_state
     statelist = []
-    statelist.append(next_state)
+    statelist.append(state)
     while (i < len(transitionlist)):
         transition = transitionlist[i]
-        if transition not in transitions[next_state]:
+        if transition not in transitions[state]:
             print('invalid input')
             break
-        next_state = transitions[next_state][transition]
-        current_state = states[next_state]
-        statelist.append(next_state)
+        state = transitions[state][transition]
+        statelist.append(state)
         i+=1
     print(statelist)
 
 if __name__ == "__main__":
-    finite_state_machine('wait')
+    state_machine('wait')
