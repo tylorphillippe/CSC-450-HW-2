@@ -10,13 +10,10 @@ states ={  'wait':{
             'half power':{
                 'transit': ['cmdFP', 'cmdDC', 'cmdDP']},
             'disable':{
-                'prompt': 'disable',
                 'transit': ['cmdDC']},
             'enable':{
-                'prompt': 'enable',
                 'transit': ['cmdS']},
             'cook': {
-                'prompt': 'cook',
                 'transit': ['cmdC', 'cmdD']}}
 
 transitions ={  'wait':{
